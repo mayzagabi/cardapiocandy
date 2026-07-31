@@ -1,0 +1,1109 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Coton Candy - Locação e Comidas</title>
+    <!-- Font Awesome para ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        /* ===== RESET & BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #fdf6f9;
+            color: #3d2c3b;
+            padding: 20px;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* ===== FUNDO DECORATIVO ===== */
+        body::before,
+        body::after {
+            content: "🍭";
+            position: fixed;
+            font-size: 80px;
+            opacity: 0.15;
+            z-index: 0;
+            pointer-events: none;
+        }
+        body::before {
+            top: 20px;
+            left: 20px;
+            transform: rotate(-15deg);
+        }
+        body::after {
+            bottom: 20px;
+            right: 20px;
+            transform: rotate(20deg);
+        }
+
+        .deco-1 {
+            position: fixed;
+            font-size: 60px;
+            opacity: 0.12;
+            z-index: 0;
+            pointer-events: none;
+            top: 30%;
+            left: 5%;
+            transform: rotate(-10deg);
+        }
+        .deco-2 {
+            position: fixed;
+            font-size: 70px;
+            opacity: 0.12;
+            z-index: 0;
+            pointer-events: none;
+            bottom: 25%;
+            right: 5%;
+            transform: rotate(15deg);
+        }
+        .deco-3 {
+            position: fixed;
+            font-size: 50px;
+            opacity: 0.10;
+            z-index: 0;
+            pointer-events: none;
+            top: 10%;
+            right: 12%;
+            transform: rotate(30deg);
+        }
+        .deco-4 {
+            position: fixed;
+            font-size: 55px;
+            opacity: 0.10;
+            z-index: 0;
+            pointer-events: none;
+            bottom: 10%;
+            left: 10%;
+            transform: rotate(-20deg);
+        }
+
+        /* ===== CONTAINER PRINCIPAL ===== */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(2px);
+            border-radius: 40px;
+            padding: 30px 35px;
+            box-shadow: 0 20px 60px rgba(235, 150, 200, 0.25);
+            position: relative;
+            z-index: 1;
+            border: 2px solid rgba(255, 200, 220, 0.5);
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            text-align: center;
+            padding-bottom: 25px;
+            border-bottom: 3px dashed #fbc8d5;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .header h1 {
+            font-size: 3.2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #f7a1c4, #7ec8e3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 2px;
+            text-shadow: 0 4px 20px rgba(247, 161, 196, 0.3);
+        }
+
+        .header .subtitle {
+            font-size: 1.1rem;
+            color: #b07c9a;
+            margin-top: 6px;
+            font-weight: 500;
+            letter-spacing: 4px;
+        }
+
+        .header .supplier {
+            margin-top: 10px;
+            font-size: 0.95rem;
+            color: #7e5d74;
+            background: rgba(247, 161, 196, 0.15);
+            display: inline-block;
+            padding: 6px 22px;
+            border-radius: 30px;
+            border: 1px solid #fbc8d5;
+        }
+
+        .header .supplier i {
+            color: #f7a1c4;
+            margin-right: 8px;
+        }
+
+        /* ===== SEÇÕES ===== */
+        .section-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #4a2e44;
+            margin: 30px 0 18px 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .section-title i {
+            color: #f7a1c4;
+            font-size: 1.8rem;
+        }
+        .section-title .badge {
+            font-size: 0.7rem;
+            background: #7ec8e3;
+            color: #fff;
+            padding: 2px 14px;
+            border-radius: 30px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        /* ===== CARDS DE PRODUTOS ===== */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 18px;
+            margin-bottom: 10px;
+        }
+
+        .product-card {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 18px 16px 16px;
+            box-shadow: 0 4px 16px rgba(126, 200, 227, 0.15);
+            border: 2px solid #fce4ec;
+            transition: all 0.25s ease;
+            text-align: center;
+            position: relative;
+        }
+        .product-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 28px rgba(247, 161, 196, 0.25);
+            border-color: #f7a1c4;
+        }
+
+        .product-card .emoji {
+            font-size: 2.6rem;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .product-card .name {
+            font-weight: 700;
+            font-size: 1rem;
+            color: #3d2c3b;
+            margin-bottom: 4px;
+        }
+
+        .product-card .price {
+            font-weight: 600;
+            color: #7ec8e3;
+            font-size: 1.05rem;
+            margin-bottom: 10px;
+        }
+        .product-card .price span {
+            font-size: 0.75rem;
+            color: #b07c9a;
+            font-weight: 400;
+        }
+
+        .product-card .qty-control {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 6px;
+        }
+        .product-card .qty-control button {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: none;
+            background: #fce4ec;
+            color: #b07c9a;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .product-card .qty-control button:hover {
+            background: #f7a1c4;
+            color: #fff;
+        }
+        .product-card .qty-control .qty {
+            font-weight: 700;
+            font-size: 1.1rem;
+            min-width: 28px;
+            color: #4a2e44;
+        }
+
+        .product-card .min-warn {
+            font-size: 0.6rem;
+            color: #e07b9c;
+            margin-top: 6px;
+            background: #fdeef3;
+            padding: 2px 8px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        /* ===== DESTAQUE PARA ENCOMENDAS ===== */
+        .encomenda-card {
+            border-color: #d4eef7;
+            background: #f8feff;
+        }
+        .encomenda-card .price {
+            color: #e07b9c;
+        }
+
+        /* ===== FORMULÁRIO ===== */
+        .form-group {
+            margin-bottom: 18px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: #4a2e44;
+            margin-bottom: 5px;
+            font-size: 0.95rem;
+        }
+        .form-group label i {
+            color: #f7a1c4;
+            margin-right: 6px;
+            width: 18px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #f0d6e0;
+            border-radius: 16px;
+            font-size: 1rem;
+            background: #fff;
+            transition: 0.25s;
+            color: #3d2c3b;
+            outline: none;
+        }
+        input:focus,
+        select:focus {
+            border-color: #f7a1c4;
+            box-shadow: 0 0 0 4px rgba(247, 161, 196, 0.2);
+        }
+
+        /* ===== PAGAMENTO ===== */
+        .payment-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin: 6px 0 10px;
+        }
+        .payment-options label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #fff;
+            padding: 10px 22px;
+            border-radius: 40px;
+            border: 2px solid #f0d6e0;
+            cursor: pointer;
+            font-weight: 500;
+            transition: 0.2s;
+            font-size: 0.95rem;
+        }
+        .payment-options label:hover {
+            border-color: #f7a1c4;
+            background: #fdf6f9;
+        }
+        .payment-options input[type="radio"] {
+            width: auto;
+            margin-right: 4px;
+            accent-color: #f7a1c4;
+            transform: scale(1.1);
+        }
+        .payment-options label i {
+            color: #7ec8e3;
+            font-size: 1.2rem;
+        }
+
+        /* ===== ENTREGA ===== */
+        .delivery-toggle {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            background: #f8feff;
+            padding: 14px 22px;
+            border-radius: 40px;
+            border: 2px solid #d4eef7;
+            margin: 8px 0 6px;
+            flex-wrap: wrap;
+        }
+        .delivery-toggle label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+            color: #4a2e44;
+            cursor: pointer;
+        }
+        .delivery-toggle input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            accent-color: #7ec8e3;
+            cursor: pointer;
+            transform: scale(1.1);
+        }
+        .delivery-toggle .fee-badge {
+            background: #f7a1c4;
+            color: #fff;
+            padding: 4px 16px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        /* ===== RESUMO ===== */
+        .summary-box {
+            background: linear-gradient(135deg, #fdf6f9, #f0fafe);
+            border-radius: 28px;
+            padding: 24px 28px;
+            margin: 28px 0 22px;
+            border: 2px solid #fbc8d5;
+        }
+        .summary-box .total-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.2rem;
+            font-weight: 600;
+            padding: 6px 0;
+            border-bottom: 1px dashed #f0d6e0;
+        }
+        .summary-box .total-row:last-child {
+            border-bottom: none;
+            font-size: 1.6rem;
+            color: #f7a1c4;
+            padding-top: 12px;
+            margin-top: 6px;
+        }
+        .summary-box .total-row .label {
+            color: #4a2e44;
+        }
+        .summary-box .total-row .value {
+            color: #3d2c3b;
+        }
+        .summary-box .total-row.grand .value {
+            color: #e05a8a;
+            font-weight: 800;
+        }
+
+        .summary-items {
+            margin: 12px 0 16px;
+            max-height: 200px;
+            overflow-y: auto;
+            padding-right: 8px;
+        }
+        .summary-items::-webkit-scrollbar {
+            width: 5px;
+        }
+        .summary-items::-webkit-scrollbar-thumb {
+            background: #f7a1c4;
+            border-radius: 10px;
+        }
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+            font-size: 0.92rem;
+            border-bottom: 1px solid #f5e8ed;
+        }
+        .summary-item .name {
+            color: #4a2e44;
+        }
+        .summary-item .qty-price {
+            color: #7e5d74;
+            font-weight: 500;
+        }
+
+        /* ===== BOTÃO FINAL ===== */
+        .btn-final {
+            width: 100%;
+            padding: 18px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            border: none;
+            border-radius: 40px;
+            background: linear-gradient(135deg, #f7a1c4, #7ec8e3);
+            color: #fff;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 8px 28px rgba(247, 161, 196, 0.4);
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            margin-top: 8px;
+        }
+        .btn-final:hover {
+            transform: scale(1.01);
+            box-shadow: 0 12px 36px rgba(247, 161, 196, 0.55);
+        }
+        .btn-final:active {
+            transform: scale(0.97);
+        }
+        .btn-final i {
+            font-size: 1.5rem;
+        }
+
+        /* ===== AVISO ===== */
+        .notice {
+            background: #fef3e8;
+            border-left: 5px solid #f7a1c4;
+            padding: 12px 20px;
+            border-radius: 16px;
+            margin: 18px 0 6px;
+            font-size: 0.9rem;
+            color: #7e5d74;
+        }
+        .notice i {
+            color: #f7a1c4;
+            margin-right: 10px;
+        }
+
+        /* ===== WHATSAPP FLOATING ===== */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #25d366;
+            color: #fff;
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+            box-shadow: 0 8px 30px rgba(37, 211, 102, 0.4);
+            z-index: 999;
+            text-decoration: none;
+            transition: 0.3s;
+            border: 3px solid #fff;
+        }
+        .whatsapp-float:hover {
+            transform: scale(1.08);
+            box-shadow: 0 12px 40px rgba(37, 211, 102, 0.55);
+        }
+
+        /* ===== RESPONSIVO ===== */
+        @media (max-width: 768px) {
+            .container {
+                padding: 18px 16px;
+                border-radius: 28px;
+            }
+            .header h1 {
+                font-size: 2.2rem;
+            }
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+                gap: 12px;
+            }
+            .payment-options label {
+                padding: 8px 16px;
+                font-size: 0.85rem;
+            }
+            .summary-box {
+                padding: 18px 16px;
+            }
+            .btn-final {
+                font-size: 1.1rem;
+                padding: 16px;
+            }
+            .whatsapp-float {
+                width: 54px;
+                height: 54px;
+                font-size: 1.8rem;
+                bottom: 18px;
+                right: 18px;
+            }
+            .deco-1,
+            .deco-2,
+            .deco-3,
+            .deco-4 {
+                display: none;
+            }
+            body::before,
+            body::after {
+                font-size: 40px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .products-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+            }
+            .product-card {
+                padding: 12px 10px;
+            }
+            .product-card .emoji {
+                font-size: 2rem;
+            }
+            .product-card .name {
+                font-size: 0.85rem;
+            }
+            .product-card .price {
+                font-size: 0.9rem;
+            }
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            .delivery-toggle {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Elementos decorativos -->
+    <div class="deco-1">🍿</div>
+    <div class="deco-2">🍭</div>
+    <div class="deco-3">🍬</div>
+    <div class="deco-4">🍫</div>
+
+    <!-- ===== CONTAINER PRINCIPAL ===== -->
+    <div class="container" id="app">
+
+        <!-- HEADER -->
+        <header class="header">
+            <h1>🍭 Coton Candy</h1>
+            <p class="subtitle">✨ Locação &amp; Comidas · 3 horas ✨</p>
+            <div class="supplier">
+                <i class="fas fa-heart"></i> Fornecedor: Katarina Rayssa &amp; Wellington Luiz
+            </div>
+        </header>
+
+        <!-- ===== PARQUES ===== -->
+        <div class="section-title">
+            <i class="fas fa-bounce"></i> Parques
+            <span class="badge">Locação</span>
+        </div>
+        <div class="products-grid" id="parques-grid">
+            <!-- gerado via JS -->
+        </div>
+
+        <!-- ===== COMIDAS ===== -->
+        <div class="section-title">
+            <i class="fas fa-utensils"></i> Comidas
+            <span class="badge">Food</span>
+        </div>
+        <div class="products-grid" id="comidas-grid">
+            <!-- gerado via JS -->
+        </div>
+
+        <!-- ===== ENCOMENDAS ===== -->
+        <div class="section-title">
+            <i class="fas fa-box-open"></i> Encomendas
+            <span class="badge">Mín. 10 un.</span>
+        </div>
+        <div class="products-grid" id="encomendas-grid">
+            <!-- gerado via JS -->
+        </div>
+
+        <!-- ===== DADOS DO CLIENTE ===== -->
+        <div class="section-title" style="margin-top:40px;">
+            <i class="fas fa-user"></i> Dados do Cliente
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label><i class="fas fa-user-circle"></i> Nome completo</label>
+                <input type="text" id="cliente-nome" placeholder="Digite seu nome completo" />
+            </div>
+            <div class="form-group">
+                <label><i class="fas fa-phone"></i> Telefone para contato</label>
+                <input type="tel" id="cliente-telefone" placeholder="(81) 9 9999-9999" />
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label><i class="fas fa-map-pin"></i> Bairro</label>
+                <input type="text" id="cliente-bairro" placeholder="Ex: Boa Viagem" />
+            </div>
+            <div class="form-group">
+                <label><i class="fas fa-road"></i> Rua / Avenida</label>
+                <input type="text" id="cliente-rua" placeholder="Ex: Av. Conselheiro Aguiar" />
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label><i class="fas fa-mail-bulk"></i> CEP</label>
+                <input type="text" id="cliente-cep" placeholder="Ex: 51020-010" />
+            </div>
+            <div class="form-group">
+                <label><i class="fas fa-city"></i> Cidade</label>
+                <input type="text" id="cliente-cidade" placeholder="Ex: Recife" />
+            </div>
+        </div>
+
+        <!-- ===== FORMAS DE PAGAMENTO ===== -->
+        <div class="section-title" style="margin-top:30px;">
+            <i class="fas fa-credit-card"></i> Formas de Pagamento
+        </div>
+        <div class="payment-options" id="payment-options">
+            <label>
+                <input type="radio" name="pagamento" value="Pix" checked />
+                <i class="fas fa-qrcode"></i> Pix
+            </label>
+            <label>
+                <input type="radio" name="pagamento" value="Dinheiro" />
+                <i class="fas fa-money-bill-wave"></i> Dinheiro
+            </label>
+            <label>
+                <input type="radio" name="pagamento" value="Cartão (Crédito)" />
+                <i class="fas fa-credit-card"></i> Cartão Crédito
+            </label>
+            <label>
+                <input type="radio" name="pagamento" value="Cartão (Débito)" />
+                <i class="fas fa-credit-card"></i> Cartão Débito
+            </label>
+        </div>
+
+        <!-- ===== TAXA DE ENTREGA ===== -->
+        <div class="section-title" style="margin-top:30px;">
+            <i class="fas fa-truck"></i> Entrega
+        </div>
+        <div class="delivery-toggle">
+            <label>
+                <input type="checkbox" id="entrega-check" />
+                <i class="fas fa-map-marked-alt"></i> Outra cidade / Sítio
+            </label>
+            <span class="fee-badge">Taxa: R$ 50,00</span>
+            <span style="font-size:0.85rem; color:#7e5d74; margin-left:auto;">
+                <i class="fas fa-info-circle"></i> Apenas para outras cidades ou sítios
+            </span>
+        </div>
+
+        <!-- ===== RESUMO ===== -->
+        <div class="section-title" style="margin-top:30px;">
+            <i class="fas fa-receipt"></i> Resumo do Pedido
+        </div>
+        <div class="summary-box">
+            <div class="summary-items" id="summary-items">
+                <!-- itens via JS -->
+                <div style="color:#b07c9a; text-align:center; padding:12px 0;">
+                    Nenhum item selecionado
+                </div>
+            </div>
+            <div class="total-row">
+                <span class="label">Subtotal</span>
+                <span class="value" id="subtotal">R$ 0,00</span>
+            </div>
+            <div class="total-row" id="entrega-row" style="display:none;">
+                <span class="label">Taxa de entrega</span>
+                <span class="value">R$ 50,00</span>
+            </div>
+            <div class="total-row grand">
+                <span class="label"><strong>Total</strong></span>
+                <span class="value" id="total-final">R$ 0,00</span>
+            </div>
+        </div>
+
+        <!-- AVISO -->
+        <div class="notice">
+            <i class="fas fa-exclamation-triangle"></i>
+            <strong>ATENÇÃO:</strong> Encomendas (algodão doce no copo, com fini, no saquinho, pipoca doce e gourmet)
+            somente a partir de <strong>10 unidades</strong>.
+        </div>
+
+        <!-- BOTÃO FINAL -->
+        <button class="btn-final" id="btn-finalizar">
+            <i class="fab fa-whatsapp"></i> Finalizar Pedido via WhatsApp
+        </button>
+
+        <!-- rodapé -->
+        <div style="text-align:center; margin-top:24px; font-size:0.8rem; color:#b07c9a; border-top:1px solid #f5e8ed; padding-top:18px;">
+            <i class="fas fa-phone" style="margin-right:6px;"></i> +55 81 97305-3907
+            &nbsp;&nbsp;·&nbsp;&nbsp; <i class="fas fa-clock"></i> Duração: 3h
+        </div>
+    </div>
+
+    <!-- ===== WHATSAPP FLOAT ===== -->
+    <a href="https://wa.me/5581973053907" target="_blank" class="whatsapp-float" aria-label="WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- ===== JAVASCRIPT ===== -->
+    <script>
+        (function() {
+            'use strict';
+
+            // ---- DADOS DOS PRODUTOS ----
+            const produtos = {
+                parques: [
+                    { id: 'pula-pula', nome: 'Pula Pula', emoji: '🤸', preco: 100.00 },
+                    { id: 'casinha-bolinhas', nome: 'Casinha de Bolinhas', emoji: '🟣', preco: 100.00 },
+                    { id: 'toboga-medio', nome: 'Tobogã Médio', emoji: '🛝', preco: 350.00 },
+                    { id: 'toboga-mini', nome: 'Tobogã Mini', emoji: '🛝', preco: 250.00 },
+                    { id: 'futebol-sabao', nome: 'Futebol de Sabão', emoji: '⚽', preco: 350.00 },
+                ],
+                comidas: [
+                    { id: 'algodao-doce', nome: 'Algodão Doce', emoji: '🍭', preco: 100.00 },
+                    { id: 'pipoca', nome: 'Pipoca', emoji: '🍿', preco: 100.00 },
+                    { id: 'sorvete-chapa', nome: 'Sorvete na Chapa', emoji: '🍦', preco: 200.00 },
+                ],
+                encomendas: [
+                    { id: 'algodao-copo', nome: 'Algodão Doce no Copo', emoji: '🥤', preco: 3.50, min: 10 },
+                    { id: 'algodao-fini', nome: 'Algodão Doce com Fini', emoji: '🍬', preco: 7.00, min: 10 },
+                    { id: 'algodao-saquinho', nome: 'Algodão Doce no Saquinho', emoji: '🛍️', preco: 2.50, min: 10 },
+                    { id: 'pipoca-doce', nome: 'Pipoca Doce', emoji: '🍿', preco: 3.50, min: 10 },
+                    { id: 'pipoca-gourmet', nome: 'Pipoca Gourmet', emoji: '🧂', preco: 7.00, min: 10 },
+                ]
+            };
+
+            // ---- ESTADO ----
+            const state = {
+                quantidades: {}, // { id: quantidade }
+            };
+
+            // ---- REFERÊNCIAS DOM ----
+            const grids = {
+                parques: document.getElementById('parques-grid'),
+                comidas: document.getElementById('comidas-grid'),
+                encomendas: document.getElementById('encomendas-grid'),
+            };
+            const summaryItems = document.getElementById('summary-items');
+            const subtotalEl = document.getElementById('subtotal');
+            const totalFinalEl = document.getElementById('total-final');
+            const entregaRow = document.getElementById('entrega-row');
+            const entregaCheck = document.getElementById('entrega-check');
+            const btnFinalizar = document.getElementById('btn-finalizar');
+
+            // ---- FUNÇÕES AUXILIARES ----
+            function formatMoney(val) {
+                return 'R$ ' + val.toFixed(2).replace('.', ',');
+            }
+
+            function getProdutoById(id) {
+                for (const cat of ['parques', 'comidas', 'encomendas']) {
+                    const found = produtos[cat].find(p => p.id === id);
+                    if (found) return found;
+                }
+                return null;
+            }
+
+            function getQuantidade(id) {
+                return state.quantidades[id] || 0;
+            }
+
+            function setQuantidade(id, val) {
+                if (val < 0) val = 0;
+                const prod = getProdutoById(id);
+                if (prod && prod.min && val > 0 && val < prod.min) {
+                    // não impede, mas mostra aviso visual
+                }
+                state.quantidades[id] = val;
+                renderizarTudo();
+            }
+
+            // ---- RENDERIZAR PRODUTOS ----
+            function renderizarProdutos() {
+                for (const [categoria, grid] of Object.entries(grids)) {
+                    const lista = produtos[categoria];
+                    if (!lista) continue;
+                    grid.innerHTML = '';
+                    lista.forEach(prod => {
+                        const qty = getQuantidade(prod.id);
+                        const card = document.createElement('div');
+                        card.className = 'product-card' + (prod.min ? ' encomenda-card' : '');
+
+                        let minHTML = '';
+                        if (prod.min) {
+                            minHTML = `<div class="min-warn">⚠️ mín. ${prod.min} un.</div>`;
+                        }
+
+                        card.innerHTML = `
+                            <span class="emoji">${prod.emoji}</span>
+                            <div class="name">${prod.nome}</div>
+                            <div class="price">${formatMoney(prod.preco)} <span>${prod.min ? '/ un' : ''}</span></div>
+                            <div class="qty-control">
+                                <button data-id="${prod.id}" data-dir="-1">−</button>
+                                <span class="qty" id="qty-${prod.id}">${qty}</span>
+                                <button data-id="${prod.id}" data-dir="1">+</button>
+                            </div>
+                            ${minHTML}
+                        `;
+                        grid.appendChild(card);
+                    });
+                }
+
+                // Eventos dos botões +/- (delegação)
+                document.querySelectorAll('.qty-control button').forEach(btn => {
+                    btn.removeEventListener('click', handleQtyClick);
+                    btn.addEventListener('click', handleQtyClick);
+                });
+            }
+
+            function handleQtyClick(e) {
+                const btn = e.currentTarget;
+                const id = btn.dataset.id;
+                const dir = parseInt(btn.dataset.dir);
+                const prod = getProdutoById(id);
+                let current = getQuantidade(id);
+                let novo = current + dir;
+
+                // Se for encomenda e estiver tentando diminuir de 10 para 9, permitimos, mas avisamos
+                // Se for encomenda e tentar aumentar de 0 para 1, permitimos (mas o aviso fica)
+                if (novo < 0) novo = 0;
+
+                // Se for encomenda e o usuário tentar aumentar de 0, vai para 1 (mas o aviso de mínimo aparece)
+                setQuantidade(id, novo);
+            }
+
+            // ---- RENDERIZAR RESUMO ----
+            function renderizarResumo() {
+                let itensHTML = '';
+                let subtotal = 0;
+                let temItem = false;
+
+                for (const cat of ['parques', 'comidas', 'encomendas']) {
+                    for (const prod of produtos[cat]) {
+                        const qty = getQuantidade(prod.id);
+                        if (qty > 0) {
+                            temItem = true;
+                            const totalItem = qty * prod.preco;
+                            subtotal += totalItem;
+                            const nomeExib = prod.nome + (prod.min ? ' (un)' : '');
+                            itensHTML += `
+                                <div class="summary-item">
+                                    <span class="name">${prod.emoji} ${nomeExib}</span>
+                                    <span class="qty-price">${qty} × ${formatMoney(prod.preco)} = ${formatMoney(totalItem)}</span>
+                                </div>
+                            `;
+                        }
+                    }
+                }
+
+                if (!temItem) {
+                    itensHTML = `<div style="color:#b07c9a; text-align:center; padding:12px 0;">Nenhum item selecionado</div>`;
+                }
+
+                summaryItems.innerHTML = itensHTML;
+
+                // Subtotal
+                subtotalEl.textContent = formatMoney(subtotal);
+
+                // Taxa de entrega
+                const entregaAtiva = entregaCheck.checked;
+                const taxaEntrega = entregaAtiva ? 50.00 : 0;
+                if (entregaAtiva) {
+                    entregaRow.style.display = 'flex';
+                } else {
+                    entregaRow.style.display = 'none';
+                }
+
+                const total = subtotal + taxaEntrega;
+                totalFinalEl.textContent = formatMoney(total);
+            }
+
+            // ---- RENDERIZAR TUDO ----
+            function renderizarTudo() {
+                // Atualiza todos os contadores nos cards
+                for (const cat of ['parques', 'comidas', 'encomendas']) {
+                    for (const prod of produtos[cat]) {
+                        const el = document.getElementById(`qty-${prod.id}`);
+                        if (el) el.textContent = getQuantidade(prod.id);
+                    }
+                }
+                renderizarResumo();
+            }
+
+            // ---- VALIDAÇÃO E ENVIO ----
+            function validarFormulario() {
+                const nome = document.getElementById('cliente-nome').value.trim();
+                const telefone = document.getElementById('cliente-telefone').value.trim();
+                const bairro = document.getElementById('cliente-bairro').value.trim();
+                const rua = document.getElementById('cliente-rua').value.trim();
+                const cep = document.getElementById('cliente-cep').value.trim();
+                const cidade = document.getElementById('cliente-cidade').value.trim();
+
+                // Verifica se pelo menos um item foi selecionado
+                let temItem = false;
+                for (const cat of ['parques', 'comidas', 'encomendas']) {
+                    for (const prod of produtos[cat]) {
+                        if (getQuantidade(prod.id) > 0) { temItem = true; break; }
+                    }
+                    if (temItem) break;
+                }
+
+                if (!temItem) {
+                    alert('⚠️ Selecione pelo menos um item para fazer o pedido.');
+                    return false;
+                }
+
+                if (!nome || nome.length < 3) {
+                    alert('⚠️ Por favor, preencha seu nome completo.');
+                    document.getElementById('cliente-nome').focus();
+                    return false;
+                }
+
+                if (!telefone || telefone.length < 10) {
+                    alert('⚠️ Por favor, preencha um telefone válido para contato.');
+                    document.getElementById('cliente-telefone').focus();
+                    return false;
+                }
+
+                if (!bairro) {
+                    alert('⚠️ Informe seu bairro.');
+                    document.getElementById('cliente-bairro').focus();
+                    return false;
+                }
+
+                if (!rua) {
+                    alert('⚠️ Informe sua rua / avenida.');
+                    document.getElementById('cliente-rua').focus();
+                    return false;
+                }
+
+                if (!cidade) {
+                    alert('⚠️ Informe sua cidade.');
+                    document.getElementById('cliente-cidade').focus();
+                    return false;
+                }
+
+                // Verifica mínimo de encomendas
+                let erroMin = false;
+                for (const prod of produtos.encomendas) {
+                    const qty = getQuantidade(prod.id);
+                    if (qty > 0 && qty < prod.min) {
+                        alert(`⚠️ "${prod.nome}" requer no mínimo ${prod.min} unidades. Você selecionou ${qty}.`);
+                        erroMin = true;
+                        break;
+                    }
+                }
+                if (erroMin) return false;
+
+                return true;
+            }
+
+            function gerarMensagemWhatsApp() {
+                const nome = document.getElementById('cliente-nome').value.trim();
+                const telefone = document.getElementById('cliente-telefone').value.trim();
+                const bairro = document.getElementById('cliente-bairro').value.trim();
+                const rua = document.getElementById('cliente-rua').value.trim();
+                const cep = document.getElementById('cliente-cep').value.trim();
+                const cidade = document.getElementById('cliente-cidade').value.trim();
+
+                const pagamento = document.querySelector('input[name="pagamento"]:checked');
+                const formaPag = pagamento ? pagamento.value : 'Não informado';
+
+                const entregaAtiva = entregaCheck.checked;
+                const taxaEntrega = entregaAtiva ? 50.00 : 0;
+
+                // Monta lista de itens
+                let itensMsg = '';
+                let subtotal = 0;
+                for (const cat of ['parques', 'comidas', 'encomendas']) {
+                    for (const prod of produtos[cat]) {
+                        const qty = getQuantidade(prod.id);
+                        if (qty > 0) {
+                            const totalItem = qty * prod.preco;
+                            subtotal += totalItem;
+                            const unidade = prod.min ? ' un' : '';
+                            itensMsg += `• ${prod.nome}: ${qty}${unidade} × ${formatMoney(prod.preco)} = ${formatMoney(totalItem)}\n`;
+                        }
+                    }
+                }
+
+                const total = subtotal + taxaEntrega;
+
+                let msg = `🍭 *COTON CANDY - PEDIDO* 🍭\n\n`;
+                msg += `👤 *Cliente:* ${nome}\n`;
+                msg += `📞 *Telefone:* ${telefone}\n`;
+                msg += `📍 *Endereço:* ${rua}, ${bairro}, ${cidade} - CEP: ${cep}\n\n`;
+                msg += `📦 *Itens do pedido:*\n${itensMsg}\n`;
+                msg += `💳 *Pagamento:* ${formaPag}\n`;
+                if (entregaAtiva) {
+                    msg += `🚚 *Taxa de entrega:* ${formatMoney(taxaEntrega)} (outra cidade/sítio)\n`;
+                } else {
+                    msg += `🚚 *Taxa de entrega:* Isenta (mesma cidade)\n`;
+                }
+                msg += `\n💰 *Total do pedido:* ${formatMoney(total)}\n\n`;
+                msg += `📅 *Duração:* 3 horas\n`;
+                msg += `🧑‍🍳 *Fornecedor:* Katarina Rayssa & Wellington Luiz\n`;
+                msg += `📱 *Contato:* +55 81 97305-3907\n\n`;
+                msg += `✨ *Obrigado pela preferência!* ✨`;
+
+                return msg;
+            }
+
+            function finalizarPedido() {
+                if (!validarFormulario()) return;
+
+                const msg = gerarMensagemWhatsApp();
+                const telefone = '5581973053907';
+                const url = `https://wa.me/${telefone}?text=${encodeURIComponent(msg)}`;
+
+                // Abre o WhatsApp
+                window.open(url, '_blank');
+            }
+
+            // ---- EVENTOS ----
+            entregaCheck.addEventListener('change', renderizarTudo);
+
+            btnFinalizar.addEventListener('click', finalizarPedido);
+
+            // ---- INICIALIZAÇÃO ----
+            // Inicializa todas as quantidades com 0
+            for (const cat of ['parques', 'comidas', 'encomendas']) {
+                for (const prod of produtos[cat]) {
+                    state.quantidades[prod.id] = 0;
+                }
+            }
+
+            renderizarProdutos();
+            renderizarResumo();
+
+            // Re-renderiza ao mudar os inputs do cliente (para manter consistência)
+            document.querySelectorAll('#cliente-nome, #cliente-telefone, #cliente-bairro, #cliente-rua, #cliente-cep, #cliente-cidade')
+                .forEach(el => {
+                    el.addEventListener('input', renderizarResumo);
+                });
+
+            // Re-renderiza ao mudar forma de pagamento (só para manter consistência visual)
+            document.querySelectorAll('input[name="pagamento"]').forEach(el => {
+                el.addEventListener('change', renderizarResumo);
+            });
+
+            console.log('🍭 Coton Candy — Site carregado com sucesso!');
+        })();
+    </script>
+</body>
+</html>
